@@ -103,6 +103,31 @@ class gridFunc:
         for diagonal dots will take sides which are shorter first ie length
         or breadth then the reaming side 
         '''
+        
+class readWrite:
+    def __init__(self , rows : int , columns : int , grid : list , file_location : str) -> None:
+        self.rows = rows
+        self.columns = columns
+        self.grid = grid
+        self.file_location = file_location
+        
+    def write_file(self , file_location : str , data : str) -> None:
+        open(file_location, "w").close()
+        
+        file = open(file_location, "w")
+        file.write(data)
+        
+        file.close()
+        
+    def read_file(self , file_location : str) -> str:
+        file = open(file_location , 'r')
+        
+        data = file.readlines()
+
+        file.close()
+
+        return data
+        
     
 if __name__ == "__main__":
     print("PASS")
