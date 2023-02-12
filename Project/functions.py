@@ -28,6 +28,36 @@ class gridFunc:
         
         return np.array(grid)
     
+    def generate_dots_location(self) -> list:
+        dot_x = random.randint(0,self.rows-1)
+        dot_y = random.randint(0,self.columns-1)
+        
+        return [dot_x , dot_y]
+    
+    def generate_dots_positions(self) -> list:
+        dots_positions = []
+        for _ in range(self.dots * 2):
+            
+            x , y = map(int , self.generate_dots_location())
+
+            while([x,y] in dots_positions):
+                x , y = map(int , self.generate_dots_location())
+
+            temp = [x,y]
+
+            dots_positions.append(temp)
+                    
+        return dots_positions
+    
+    def group_dots(self , dots_positions : list) -> list:
+        dot_positions = []
+        
+        for i in range(0 , len(dots_positions) , 2):
+            dots_positions[i].extend(dots_positions[i+1])
+            dot_positions.append(dots_positions[i])
+        
+        return dot_positions
+    
     def place_dot(self , grid : list , dot_x : int , dot_y : int , place_holder : int) -> list:
         if(grid[dot_x][dot_y] == place_holder):
             grid[dot_y][dot_x] = place_holder
