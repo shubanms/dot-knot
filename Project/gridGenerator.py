@@ -1,6 +1,7 @@
 import numpy as np
 import random
 from pandas import *
+import time
 
 class gridTester:
     def __init__(self , rows : int , columns : int , dots : int , grid : list) -> None:
@@ -8,6 +9,17 @@ class gridTester:
         self.columns = columns
         self.dots = dots * 2
         self.grid = grid
+    
+    @classmethod
+    def function_timer(self , func):
+        def wrapper():
+            start = time.time()
+            func()
+            end = time.time()
+            
+            print(f'{func.__name__} took {end - start} seconds')
+        
+        return wrapper
         
     def grid_print(self , grid : list) -> None:
         grid = np.array(grid)
@@ -22,7 +34,7 @@ class gridTester:
         dot_y = random.randint(3,10)
         
         return [dot_x , dot_y]
-        
+   
     def generate_dots_positions(self) -> list:
         dots_positions = []
         for _ in range(self.dots):
@@ -66,6 +78,11 @@ if __name__ == "__main__":
     
     print(dots_positions)
     
+    board.function_timer(board.generate_dots_positions)
+    print(board.function_timer(board.generate_dots_positions))
+    
+    
     # board.place_dots(dots_positions)
     
     # board.grid_print(grid)
+    
